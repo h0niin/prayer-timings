@@ -22,10 +22,8 @@ def update_data():
     while True:
         data()
         # Update the label text in the main thread
-        app.after(0, update_label)
-        # Refresh every 30 minutes
-
-
+        app.after(3600000, update_label)
+        # Refresh every hour
 
 def update_label():
     times.configure(text=txt)
@@ -36,14 +34,13 @@ app = ctk.CTk()
 app.title("Prayer Times by h0niin ")
 app.geometry("400x400")
 try:app.iconbitmap('prayerly.ico')
-except:print("App Icon Error :(")
+except:print("App Icon Not Found :(")
 
 ctk.CTkLabel(app, text="Prayer Times", font=("forte", 30)).pack(pady=(20,5))
 ctk.CTkLabel(app, text="(Kattangal)", font=("segoe print", 15)).pack(pady=5)
 frame = ctk.CTkFrame(app, corner_radius=10)
 frame.pack(pady=10, padx=40, fill='both')
 
-# Initialize data
 data()
 
 times = ctk.CTkLabel(frame, text=txt, font=("roboto", 20))
@@ -53,7 +50,8 @@ current_time.pack(pady=10)
 ctk.CTkLabel(app, text="Stay Tuned for Next Update: Enter Location! ", font=("roboto", 15, "italic")).pack()
 ctk.CTkLabel(app, text="Do message @h0rniin for feedback...", font=("roboto", 10, "italic")).pack()
 
-# Start the thread to refresh data
+# Start thread to refresh data
 threading.Thread(target=update_data, daemon=True).start()
 
 app.mainloop()
+
